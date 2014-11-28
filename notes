@@ -1,0 +1,124 @@
+pake python3 atau ipython
+
+beberapa konsep tentang method
+
+A. parameter / argument:
+	method bisa memiliki parameter atau tidak. untuk yang memiliki argumen maka jenis argumen ada dua yaitu positional dan keybased argumen.
+	perbedaannya:
+		
+		#positional argument:
+		def method(arg1,arg2):
+			....
+	
+	arg1 dan arg2 harus dimasukan secara berurutan. urutan yang salah bisa menyebabkan method
+mengembalikan nilai yang salah atau menimbulkan error
+		
+		#keybased argument 
+		def method(arg1=1.0,arg2='a'):
+			...
+	arg1 atau arg2 bisa dimasukan secara tidak berurutan, asalkan nama parameter dan jenis tipe
+datanya sama
+		
+		#contoh
+		method(arg2='test',arg1=3.4)
+		method(arg1=2.3,arg2='b')
+	
+	jumlah parameter yang dimasukan bisa < dari jumlah parameter yang dimiliki method tersebut. bisa
+dilihat pada deklarasi method setiap parameter sudah mempunyai nilai awal.	
+		
+		method(arg2='c')
+
+B. Jumlah parameter:
+	Jumlah parameter bisa tidak terhingga dengan menggunakan pola:
+		*args | **kwargs
+		
+	*args untuk positional argument sedangkan **kwargs untuk key based argument
+	Pendeklarasiannya harus terurut
+		
+		def method(*args,**kwargs):
+			...
+	untuk *args direpresentasikan sebagai tuple
+		
+		def method(*args):
+			print args #tidak ikut menyertakan tanda '*'
+		
+		method(3,4,5,2,1)
+		#akan menampilkan (3,4,5,2,1)
+	
+	untuk **kwargs akan direpresentasikan sebagai dictionary
+	
+	*args dan **kwargs bisa dicampur dengan argumen biasa dengan pola-pola sebagai berikut:
+		1. arg_1,...,arg_n,*args,**kwargs,kwarg_1,..,kwarg_n
+		2. arg_1,..,arg_n,*args,kwarg_1,..,kwarg_n,**kwargs
+
+C. Fungsi sebagai parameter
+	selain variable sebuah method juga bisa menerima fungsi sebagai parameter
+
+D. Fungsi didalam method (local function)
+	sebuah fungsi bisa dideklarasikan didalam sebuah method(disebut local function)
+
+		def method(*args):
+			def method_local(*args):
+				...
+			...
+
+	karena itu maka sebuah method bisa menjadikan fungsi sebagai return value
+			
+			def method(*args):
+				def method_local(*args):
+					...
+				return method_local
+
+	Dari sini dikenallah istilah closure, yaitu local function yang mengakses parameter fungsi
+	induknya
+
+		def method(name):
+			def method_local():
+				print name
+			return method_local
+CLASS and PROPERTIES
+
+@staticmethod,@classmethod
+	
+===initialization=====
+git clone Repo
+===begin developing from branch 'staging'===
+git checkout staging
+===update branch in case someone push a new commit
+git fetch origin staging
+#basically the same thing, pull is fetch+merge
+git pull origin staging
+====create a new branch #ticket
+git checkout -b #ticket
+
+=========after done with coding and testing
+git add .
+git commit -m "'
+===push the change to our own branch
+git push -u origin #ticket
+====before update the repo with our branch make sure
+====everything is in sync with parent remote repo(e.g asia)
+git checkout asia
+git pull
+====apply our changes
+git merge --no-ff #ticket
+====and push!
+git push -u origin asia
+# the point is before applying our changes, make sure our source is updated
+# with the latest change from parent repo(in this case 'asia' but it could be 'dev')
+# ...but why asia first? why not staging? and let somebody else merge staging with
+# asia
+
+===finally merge our changes 'staging'
+git checkout staging
+git pull
+git merge --no-ff #ticket
+git push -u origin staging
+
+===when hell broke loose========
+
+git reset --merge ORIG_HEAD
+git reset --hard commit_number
+git clean -f -d
+git push origin ticket
+git branch -D ticket #hapus branch
