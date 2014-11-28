@@ -104,10 +104,21 @@ git pull
 git merge --no-ff #ticket
 ====and push!
 git push -u origin asia
+
 # the point is before applying our changes, make sure our source is updated
 # with the latest change from parent repo(in this case 'asia' but it could be 'dev')
 # ...but why asia first? why not staging? and let somebody else merge staging with
 # asia
+# WAAAIIIIT
+# perhaps it was asia the  child of staging?
+# then the hierarchy would be:
+# 		master->dev->staging--asia
+#				    |-belgia
+# then it all makes sense
+# NOPE
+# then why don't we just checkout from asia? no need to bother with staging branch
+# the article in intranet makes more sense, though we just merge with origin without
+# any pull.
 
 ===finally merge our changes 'staging'
 git checkout staging
